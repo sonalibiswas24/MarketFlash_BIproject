@@ -1,16 +1,16 @@
 # MarketFlash_BIproject
-##Overview
+## Overview
 
 
-##Project Objective
+## Project Objective
 
 
 
-##Database Design
+## Database Design
 
 
-##BI Insight
+## BI Insight
 
 
-##Closing Reports
+## Closing Reports
 
