@@ -1,0 +1,42 @@
+-- Create Dimension: Clients
+CREATE TABLE Clients (
+    client_id INT PRIMARY KEY,
+    CompanyName VARCHAR(50) NOT NULL,
+    Address VARCHAR(255),
+    Email VARCHAR(100) UNIQUE,
+    Phone VARCHAR(20),
+    Contact_Person VARCHAR(50)
+);
+
+-- Create Dimension: Executives
+CREATE TABLE Executives (
+    executive_id INT PRIMARY KEY,
+    executive_name VARCHAR(50) NOT NULL
+);
+
+-- Create Dimension: Channels
+CREATE TABLE Channels (
+    channel_id INT PRIMARY KEY,
+    channel_name VARCHAR(50) NOT NULL
+);
+
+-- Create Dimension: CampaignTypes
+CREATE TABLE CampaignTypes (
+    campaign_type_id INT PRIMARY KEY,
+    campaign_type_name VARCHAR(50) NOT NULL
+);
+
+-- Create Dimension: Locations
+CREATE TABLE Locations (
+    location_id INT PRIMARY KEY,
+    location_name VARCHAR(50) NOT NULL
+);
+
+-- Create Dimension: Audiences
+CREATE TABLE Audiences (
+    audience_id INT PRIMARY KEY,
+    audience_name VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE Audiences
+ADD audience_age INT;
