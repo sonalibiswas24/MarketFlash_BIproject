@@ -1,0 +1,74 @@
+-- SQL Queries
+1. Average cost per click.
+SELECT SUM(expense) / SUM(clicks) AS avg_cost_per_click
+FROM `Campaigns`;
+
+
+2. Average cost per conversion.
+SELECT SUM(expense) / SUM(conversions) AS avg_cost_per_conversions
+FROM `Campaigns`;
+
+3. Audience Segment Performance.
+
+SELECT 
+    a.audience_name,a.audience_age as age_group,
+    SUM(c.views) AS total_views,
+    SUM(c.clicks) AS total_clicks,
+    SUM(c.conversions) AS total_conversions,
+    SUM(c.total_sales) AS total_sales
+FROM Campaigns c
+JOIN Audiences a 
+    ON c.audience_id = a.audience_id
+GROUP BY a.audience_name;
+
+4. Check if any campaign points to a non-existent client.
+
+SELECT c.campaign_number, c.Name
+FROM Campaigns c
+LEFT JOIN Clients cl ON c.client_id = cl.client_id
+WHERE cl.client_id IS NULL;
+
+5. Check if any marketing channels haven't been used yet.
+SELECT channel_name 
+FROM Channels 
+WHERE channel_id NOT IN (SELECT DISTINCT channel_id FROM Campaigns);
+
+6. Find any campaigns where the end_date is earlier than the start_date.
+SELECT campaign_number, Name, start_date, end_date 
+FROM Campaigns 
+WHERE end_date < start_date;
+
+7. Check for negative values in fields that should always be positive.
+
+SELECT campaign_number, Name, expense, total_sales, clicks
+FROM Campaigns
+WHERE expense < 0 OR total_sales < 0 OR clicks < 0;
+
+8. Ensure conversions are logically less than or equal to clicks.
+SELECT campaign_number, Name, clicks, conversions
+FROM Campaigns
+WHERE conversions > clicks;
+
+9. Performance Summary by Client: A quick view to see if the decimals and floats are populating correctly.
+SELECT 
+    cl.CompanyName, 
+    COUNT(c.campaign_number) AS Total_Campaigns,
+    SUM(c.expense) AS Total_Spend,
+    SUM(c.total_sales) AS Total_Revenue
+FROM Clients cl
+JOIN Campaigns c ON cl.client_id = c.client_id
+GROUP BY cl.CompanyName;
+
+10. Campaigns showing the clicks.
+
+SELECT 
+    ct.campaign_type_name,
+    SUM(c.views) AS total_views,
+    SUM(c.clicks) AS total_clicks,
+    SUM(c.expense) AS total_cost,
+    SUM(c.total_sales) AS total_revenue,
+    (SUM(c.total_sales) - SUM(c.expense)) AS net_profit
+FROM Campaigns c
+JOIN CampaignTypes ct ON c.campaign_type_id = ct.campaign_type_id
+GROUP BY ct.campaign_type_name
+ORDER BY net_profit DESC;
