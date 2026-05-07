@@ -1,3 +1,6 @@
+The values were inserted manually as grouped data via Bee Keeper.
+
+
 --Check the DB Creation
 
 select * from `Audiences`;
