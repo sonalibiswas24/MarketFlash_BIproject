@@ -1,0 +1,26 @@
+-- Create Fact Table: Campaigns
+CREATE TABLE Campaigns (
+    campaign_number INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    views float DEFAULT 0,
+    likes float DEFAULT 0,
+    clicks float DEFAULT 0,
+    conversions float DEFAULT 0,
+    expense DECIMAL(15, 2) CHECK (expense >= 0),
+    total_sales DECIMAL(15, 2) DEFAULT 0.00,
+    client_id INT,
+    executive_id INT,
+    channel_id INT,
+    campaign_type_id INT,
+    audience_id INT,
+    location_id INT,
+    FOREIGN KEY (client_id) REFERENCES Clients(client_id),
+    FOREIGN KEY (executive_id) REFERENCES Executives(executive_id) ON DELETE SET NULL,
+    FOREIGN KEY (channel_id) REFERENCES Channels(channel_id),
+    FOREIGN KEY (campaign_type_id) REFERENCES CampaignTypes(campaign_type_id),
+    FOREIGN KEY (audience_id) REFERENCES Audiences(audience_id),
+    FOREIGN KEY (location_id) REFERENCES Locations(location_id)
+);
+
