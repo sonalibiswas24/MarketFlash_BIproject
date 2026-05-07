@@ -1,0 +1,9 @@
+--Check the DB Creation
+
+select * from `Audiences`;
+select * from `Campaigns`;
+select * from `CampaignTypes`;
+select * from `Channels`;
+select * from `Clients`;
+select * from `Executives`;
+select * from `Locations`;
